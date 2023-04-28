@@ -15,7 +15,6 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -28,7 +27,6 @@ public class GetCustomerInfoSteps {
   @Mock
   CustomerService customerService;
 
-  @InjectMocks
   DemoController demoController;
 
   @Captor
@@ -43,9 +41,9 @@ public class GetCustomerInfoSteps {
         .build();
   }
 
-  @Given("I get customer information from Service A")
-  public void iGetCustomerInformationFromServiceA() {
-
+  @Given("this is a demo to get customer information")
+public void thisIsADemoToGetCustomerInformation() {
+    demoController = new DemoController(serviceA, customerService);
   }
 
   @When("the response is received with status is TRUE")
@@ -54,8 +52,8 @@ public class GetCustomerInfoSteps {
     when(serviceA.getCustomerInfo("customer1")).thenReturn(customerInfoResponse);
   }
 
-  @Then("the customer information is saved in the database")
-  public void theCustomerInformationIsSavedInTheDatabase() {
+  @Then("the demo gets customer info and saves the response customer information from service A to the database")
+  public void theDemoGetsCustomerInfoAndSavesTheResponseCustomerInformationFromServiceAToTheDatabase() {
     demoController.getCustomerInfo("customer1");
     verify(customerService).save(customerEntityArgumentCaptor.capture());
 
