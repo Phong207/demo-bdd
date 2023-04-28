@@ -6,6 +6,7 @@ import com.example.demobddwithmockito.dto.CustomerInfoResponse;
 import com.example.demobddwithmockito.model.CustomerEntity;
 import com.example.demobddwithmockito.model.CustomerService;
 import com.example.demobddwithmockito.service.ServiceA;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -33,5 +34,15 @@ public class DemoController {
     } catch (Exception e) {
       log.error("error");
     }
+  }
+
+  public String checkPhoneNumber(String customerCode, List<String> areaCodes) {
+
+    CustomerInfoResponse customerInfo = serviceA.getCustomerInfo(customerCode);
+
+    if (areaCodes.contains(customerInfo.getPhoneNumber().substring(0, 3))) {
+      return "VIETTEL";
+    }
+    return "";
   }
 }
